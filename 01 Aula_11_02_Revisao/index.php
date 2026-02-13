@@ -13,7 +13,8 @@
 	<div class="container">
 		<h3>Cadastre seu melhor migo!!!</h3>
 
-		<form action="doform.php" method="POST" >
+		<form action="doform.php" method="POST" 
+		enctype="multipart/form-data">
 
 			<!--         NOME           -->
 			<label class="form-label">Nome:</label>

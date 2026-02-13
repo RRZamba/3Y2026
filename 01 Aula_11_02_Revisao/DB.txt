@@ -1,0 +1,12 @@
+--Criando o DB
+CREATE DATABASE migo_DB;
+
+--CRIANDO A TABELA
+CREATE TABLE migo(
+	id INT AUTO_INCREMENT,
+	nome VARCHAR(45),
+	sobrenome VARCHAR(45),
+	curso VARCHAR(45),
+	foto VARCHAR(45),
+	PRIMARY KEY(id)
+    );
