@@ -1,6 +1,47 @@
+<?php
+// Inicializando as var.
+$id = '';
+$nome = '';
+$email = '';
+$username = '';
+$rua = '';
+$cidade = '';
+
+// Verificando se o ID foi enviado via formulário (GET)
+if (isset($_GET['id']) && !empty($_GET['id'])) 
+{
+    
+    // URL da API JSONPlaceholder usando o ID 
+    $url = "https://jsonplaceholder.typicode.com/users/" . $id;
+    
+    // Faz a requisição para a API
+    $response = @file_get_contents($url);
+
+	//Se se retornar valores
+    if ($response != false) 
+	{
+        // Transformando o JSON retornado em um array
+        $usuario = json_decode($response, true);
+        
+        // Verifica se a API retornou um usuário válido
+        if (!empty($usuario)) 
+		{
+            $nome = $usuario['name'];
+            $email = $usuario['email'];
+            $username = $usuario['username'];
+            $rua = $usuario['address']['street'];
+            $cidade = $usuario['address']['city'];
+        }
+    } 
+   else 
+    {
+        echo "<script>alert('Usuário não encontrado!');</script>";
+    }
+}
+?>
 
 <!DOCTYPE html>
-<html>
+<html lang="pt-br">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,31 +49,25 @@
 
 	<link rel="stylesheet" type="text/css"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-
 </head>
 
 <body>
 
-<!-- Navbar -->
 <div class="navbar navbar-inverse">
 	<div class="container-fluid">
-
 		<div class="navbar-header">
 			<a class="navbar-brand" href="#">
 				Chuchu's System
 			</a>
 		</div>
-
 		<ul class="nav navbar-nav">
 			<li class="active"><a href="#">Home</a></li>
 			<li><a href="#">1</a></li>
 			<li><a href="#">2</a></li>
 		</ul>
-
 	</div>
 </div>
 
-<!-- Conteúdo -->
 <div class="container">
 
 	<div class="jumbotron">
@@ -40,91 +75,77 @@
 		<p>Ai que Lindos</p>
 	</div>
 
-	<form>
-
+	<form method="GET" action="">
 		<div class="form-group row">
-
 			<div class="col-xs-2">
 				<label>ID</label>
-
 				<input
 					class="form-control"
-					type="text"
+					type="number" 
 					name="id"
-					placeholder="Digite o ID">
+					value="<?php echo $id; ?>"
+					placeholder="Digite o ID (1 a 10)"
+					required>
 			</div>
 
 			<div class="col-xs-12">
 				<br>
-
-				<button type="submit"
-				class="btn btn-primary">
+				<button type="submit" class="btn btn-primary">
 					Buscar
 				</button>
 			</div>
-
 		</div>
-
 	</form>
 
 	<hr>
 
 	<div class="form-group row">
-
 		<div class="col-xs-3">
 			<label>Nome</label>
-
 			<input
 				class="form-control"
 				type="text"
-				value=""
+				value="<?php echo $nome; ?>"
 				readonly>
 		</div>
 
 		<div class="col-xs-4">
 			<label>Email</label>
-
 			<input
 				class="form-control"
 				type="text"
-				value=""
+				value="<?php echo $email; ?>"
 				readonly>
 		</div>
-
 	</div>
 
 	<div class="form-group row">
-
 		<div class="col-xs-3">
 			<label>Username</label>
-
 			<input
 				class="form-control"
 				type="text"
-				value=""
+				value="<?php echo $username; ?>"
 				readonly>
 		</div>
 
 		<div class="col-xs-3">
 			<label>Rua</label>
-
 			<input
 				class="form-control"
 				type="text"
-				value=""
+				value="<?php echo $rua; ?>"
 				readonly>
 		</div>
 
 		<div class="col-xs-3">
 			<label>Cidade</label>
-
 			<input
 				class="form-control"
 				type="text"
-				value=""
+				value="<?php echo $cidade; ?>"
 				readonly>
 		</div>
-
 	</div>
 
 </div>
